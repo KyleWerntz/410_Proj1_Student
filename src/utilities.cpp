@@ -51,12 +51,6 @@ int loadData(const char* filename, bool ignoreFirstRow) {
 			if (data.size() != 4)	{
 				valid = false;
 			}
-			if (valid)	{
-				for (string s : data)	{
-					if (s == "")
-						valid = false;
-				}
-			}
 
 			if (valid)	{
 				process_stats p;
@@ -99,10 +93,7 @@ void sortData(SORT_ORDER mySortOrder) {
 }
 
 process_stats getNext() {
-	process_stats myFirst;
-	if (stats.size() != 0)	{
-		process_stats myFirst = stats.at(0);
-	}
+	process_stats myFirst = stats.at(0);
 
 	stats.erase(stats.begin());
 	return myFirst;
@@ -118,6 +109,7 @@ vector<string> split(string s)	{
 	int start = 0;
 	for (int i = 0; i < s.size(); i++)	{
 		if (s[i] == ',')	{
+			if (start != i)
 			ans.push_back(s.substr(start,i));
 			start = i+1;
 		} else if (i == s.size()-1)	{
